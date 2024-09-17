@@ -66,15 +66,23 @@ public class DLL<T> {
     }
     public void removeBetween(T e1, T e2) {
         if (!(e1 == null || e2 == null)){
+            DLLNode tmp = head;
+            while (tmp.data != e1 && tmp.next != null) {
+                tmp = tmp.next;
+            }
+            if (tmp.next == null) {
+                return;
+            }
+            DLLNode tmp2 = tmp.next;
+            while (tmp2.data != e2 && tmp2.next != null) {
+                tmp2 = tmp2.next;
+            }
+            if (tmp2.next == null && tmp2.data != e2) {
+                return;
+            }
+            tmp.next = tmp2;
+            tmp.next.previous = tmp;
             current = head;
-            while (current != e1) {
-                current = current.next;
-            }
-            current.next = (DLLNode)e1;
-            while (current != e2) {
-                current = current.next;
-            }
-            current.previous = (DLLNode)e1;
         }
         // throw new UnsupportedOperationException("Not supported yet.");
         // Write the method removeBetween, member of the class DoubleLinkedList. The method
