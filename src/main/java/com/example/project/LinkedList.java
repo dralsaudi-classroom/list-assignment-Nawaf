@@ -1,4 +1,5 @@
 package com.example.project;
+import java.util.HashMap;
 
 public class LinkedList<T> implements List<T>{
 	private Node<T> head;
@@ -55,7 +56,34 @@ public class LinkedList<T> implements List<T>{
         }
     }
     public T mostFrequentElement() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Node<T> tmp = head;
+        T maxNode = null;
+        int max = 0;
+        HashMap<T, Integer> counter = new HashMap<>();
+
+        if (tmp != null) {
+            counter.put(tmp.data, 1);
+        }
+
+        while(tmp.next != null) {
+            tmp = tmp.next;
+            if (counter.get(tmp.data) == null) {
+                counter.put(tmp.data, 1);
+            }
+            else {
+                int inc = counter.get(tmp.data);
+                counter.put(tmp.data, ++inc);
+            }
+        }
+
+        for (T compare : counter.keySet()) {
+            if (counter.get(compare) > max ) {
+                maxNode = compare;
+                max = counter.get(compare);
+            }
+        }
+        return maxNode;
+
         //         Write the method mostFrequentElement, member of the class LinkedList, that returns
         // the most frequent element in the list. The most frequent element is the element
         // appearing the highest number of times. If one or more element appear the same
